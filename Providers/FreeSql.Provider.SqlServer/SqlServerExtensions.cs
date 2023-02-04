@@ -323,27 +323,27 @@ public static partial class FreeSqlSqlServerGlobalExtensions
     }
 #if net40
 #else
-    public static Task<int> ExecuteSqlBulkCopyAsync<T>(this IInsertOrUpdate<T> that, SqlBulkCopyOptions copyOptions = SqlBulkCopyOptions.Default, int? batchSize = null, int? bulkCopyTimeout = null, CancellationToken cancellationToken = default) where T : class
+    public static Task<int> ExecuteSqlBulkCopyAsync<T>(this IInsertOrUpdate<T> that, SqlBulkCopyOptions copyOptions = SqlBulkCopyOptions.Default, int? batchSize = null, int? bulkCopyTimeout = null, string tableName = null, CancellationToken cancellationToken = default) where T : class
     {
         var upsert = that as InsertOrUpdateProvider<T>;
         if (upsert._source.Any() != true || upsert._tempPrimarys.Any() == false) return Task.FromResult(0);
         var state = ExecuteSqlBulkCopyState(upsert);
-        return UpdateProvider.ExecuteBulkUpsertAsync(upsert, state, insert => insert.ExecuteSqlBulkCopyAsync(copyOptions, batchSize, bulkCopyTimeout, cancellationToken));
+        return UpdateProvider.ExecuteBulkUpsertAsync(upsert, state, insert => insert.ExecuteSqlBulkCopyAsync(copyOptions, batchSize, bulkCopyTimeout, tableName, cancellationToken));
     }
-    public static Task<int> ExecuteSqlBulkCopyAsync<T>(this IUpdate<T> that, SqlBulkCopyOptions copyOptions = SqlBulkCopyOptions.Default, int? batchSize = null, int? bulkCopyTimeout = null, CancellationToken cancellationToken = default) where T : class
+    public static Task<int> ExecuteSqlBulkCopyAsync<T>(this IUpdate<T> that, SqlBulkCopyOptions copyOptions = SqlBulkCopyOptions.Default, int? batchSize = null, int? bulkCopyTimeout = null, string tableName = null, CancellationToken cancellationToken = default) where T : class
     {
         var update = that as UpdateProvider<T>;
         if (update._source.Any() != true || update._tempPrimarys.Any() == false) return Task.FromResult(0);
         var state = ExecuteSqlBulkCopyState(update);
-        return UpdateProvider.ExecuteBulkUpdateAsync(update, state, insert => insert.ExecuteSqlBulkCopyAsync(copyOptions, batchSize, bulkCopyTimeout, cancellationToken));
+        return UpdateProvider.ExecuteBulkUpdateAsync(update, state, insert => insert.ExecuteSqlBulkCopyAsync(copyOptions, batchSize, bulkCopyTimeout, tableName, cancellationToken));
     }
-    async public static Task ExecuteSqlBulkCopyAsync<T>(this IInsert<T> that, SqlBulkCopyOptions copyOptions = SqlBulkCopyOptions.Default, int? batchSize = null, int? bulkCopyTimeout = null, CancellationToken cancellationToken = default) where T : class
+    async public static Task ExecuteSqlBulkCopyAsync<T>(this IInsert<T> that, SqlBulkCopyOptions copyOptions = SqlBulkCopyOptions.Default, int? batchSize = null, int? bulkCopyTimeout = null, string tableName = null, CancellationToken cancellationToken = default) where T : class
     {
         var insert = that as FreeSql.SqlServer.Curd.SqlServerInsert<T>;
         if (insert == null) throw new Exception(CoreStrings.S_Features_Unique("ExecuteSqlBulkCopyAsync", "SqlServer"));
 
         if (insert._insertIdentity) copyOptions = copyOptions | SqlBulkCopyOptions.KeepIdentity;
-        var dt = that.ToDataTable();
+        var dt = that.ToDataTable(tableName);
         if (dt.Rows.Count == 0) return;
 
         Func<SqlBulkCopy, Task> writeToServerAsync = bulkCopy =>

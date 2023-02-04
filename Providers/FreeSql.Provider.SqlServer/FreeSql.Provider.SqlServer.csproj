@@ -10,7 +10,7 @@
 		<RepositoryType>git</RepositoryType>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageTags>FreeSql;ORM;SqlServer;mssql</PackageTags>
-		<PackageId>$(AssemblyName)</PackageId>
+		<PackageId>$(AssemblyName).NS</PackageId>
 		<PackageIcon>logo.png</PackageIcon>
 		<Title>$(AssemblyName)</Title>
 		<IsPackable>true</IsPackable>
@@ -18,20 +18,26 @@
 		<SignAssembly>true</SignAssembly>
 		<DelaySign>false</DelaySign>
 		<AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
-		<Version>3.2.833</Version>
+		<Version>3.2.833-ns4</Version>
 		<PackageReadmeFile>readme.md</PackageReadmeFile>
 	</PropertyGroup>
 
+	<PropertyGroup>
+		<DocumentationFile>FreeSql.Provider.SqlServer.xml</DocumentationFile>
+		<WarningLevel>3</WarningLevel>
+		<NoWarn>1701;1702;1591</NoWarn>
+	</PropertyGroup>
+
 	<ItemGroup>
-		<None Include="../../readme.md" Pack="true" PackagePath="\"/>
+		<None Include="../../readme.md" Pack="true" PackagePath="\" />
 		<None Include="../../logo.png" Pack="true" PackagePath="\" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net451'">
-		<PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
+		<PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
 	</ItemGroup>
 	<ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0' or '$(TargetFramework)' == 'net8.0' or '$(TargetFramework)' == 'net7.0' or '$(TargetFramework)' == 'net6.0'">
-		<PackageReference Include="Microsoft.Data.SqlClient" Version="2.1.4" />
+		<PackageReference Include="Microsoft.Data.SqlClient" Version="2.1.7" />
 	</ItemGroup>
 
 	<ItemGroup>
