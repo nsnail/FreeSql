@@ -226,7 +226,8 @@ namespace FreeSql.Internal.CommonProvider
             if (_tableRule == null && _table.AsTableImpl == null) return _commonUtils.GetEntityTableAopName(_table, true);
             var tbname = _table?.DbName ?? "";
             string newname = null;
-            if (_table.AsTableImpl != null)
+            // 对于已经配置了TableNameImpl的表，也支持AsTable重设表名 by nsnail@2024年8月26日11:10:22
+            if (_table.AsTableImpl != null && _tableRule == null)
             {
                 if (_source.Any())
                     newname = _table.AsTableImpl.GetTableNameByColumnValue(_table.AsTableColumn.GetValue(_source.FirstOrDefault()));

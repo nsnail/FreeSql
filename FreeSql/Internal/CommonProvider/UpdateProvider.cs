@@ -734,7 +734,7 @@ namespace FreeSql.Internal.CommonProvider
                     if (replval == null) continue;
                     var replname = _commonUtils.QuoteSqlName(col.Column.Attribute.Name);
                     expt = expt.Replace(replname, _commonUtils.IsNull(replname, _commonUtils.FormatSql("{0}", replval)));
-                } 
+                }
                 else if (col.Column.CsType == typeof(string))
                 {
                     var replname = _commonUtils.QuoteSqlName(col.Column.Attribute.Name);
@@ -898,7 +898,8 @@ namespace FreeSql.Internal.CommonProvider
             if (_tableRule == null && _table.AsTableImpl == null) return _commonUtils.GetEntityTableAopName(_table, true);
             var tbname = _table?.DbName ?? "";
             string newname = null;
-            if (_table.AsTableImpl != null)
+            // 对于已经配置了TableNameImpl的表，也支持AsTable重设表名 by nsnail@2024年8月26日11:10:22
+            if (_table.AsTableImpl != null && _tableRule == null)
             {
                 if (_source.Any())
                     newname = _table.AsTableImpl.GetTableNameByColumnValue(_table.AsTableColumn.GetValue(_source.FirstOrDefault()));
@@ -1123,7 +1124,7 @@ namespace FreeSql.Internal.CommonProvider
                             sb.Append(col.DbUpdateValue);
                         else
                         {
-                            var valsameIf = col.Attribute.MapType.IsNumberType() || 
+                            var valsameIf = col.Attribute.MapType.IsNumberType() ||
                                 new[] { typeof(string), typeof(DateTime), typeof(DateTime?) }.Contains(col.Attribute.MapType) ||
                                 col.Attribute.MapType.NullableTypeOrThis().IsEnum;
                             var ds = _source.Select(a => col.GetDbValue(a)).ToArray();

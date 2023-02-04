@@ -9,7 +9,10 @@ using System.Text.RegularExpressions;
 
 namespace FreeSql.DataAnnotations
 {
-    [AttributeUsage(AttributeTargets.Class)]
+
+    [AttributeUsage(AttributeTargets.Class
+                  //禁用继承 nsnail@2022年11月23日14:38:45
+                  , Inherited = false)]
     public class TableAttribute : Attribute
     {
 

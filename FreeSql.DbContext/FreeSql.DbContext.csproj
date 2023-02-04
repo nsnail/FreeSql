@@ -9,7 +9,7 @@
 		<PackageTags>FreeSql ORM DbContext</PackageTags>
 		<RepositoryType>git</RepositoryType>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<PackageId>$(AssemblyName)</PackageId>
+		<PackageId>$(AssemblyName).NS</PackageId>
 		<PackageIcon>logo.png</PackageIcon>
 		<Title>$(AssemblyName)</Title>
 		<IsPackable>true</IsPackable>
@@ -17,7 +17,7 @@
 		<SignAssembly>true</SignAssembly>
 		<AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
 		<DelaySign>false</DelaySign>
-		<Version>3.5.100-preview20240825</Version>
+		<Version>3.5.100-preview20240825-ns1</Version>
 		<PackageReadmeFile>readme.md</PackageReadmeFile>
 	</PropertyGroup>
 
@@ -26,7 +26,7 @@
 		<None Include="../logo.png" Pack="true" PackagePath="\" />
 	</ItemGroup>
 
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+	<PropertyGroup>
 		<DocumentationFile>FreeSql.DbContext.xml</DocumentationFile>
 		<WarningLevel>3</WarningLevel>
 		<NoWarn>1701;1702;1591</NoWarn>
