@@ -167,8 +167,9 @@ namespace FreeSql
         /// 类型、表名、字段名映射<para></para>
         /// IgnoreColumns、InsertColumns
         /// </summary>
+        /// <param name="tableName">指定表名称</param>
         /// <returns></returns>
-        DataTable ToDataTable();
+        DataTable ToDataTable(string tableName = null);
 
 #if net40
 #else
