@@ -243,13 +243,13 @@ public static partial class FreeSqlSqlServerGlobalExtensions
     /// <param name="copyOptions"></param>
     /// <param name="batchSize"></param>
     /// <param name="bulkCopyTimeout"></param>
-    public static void ExecuteSqlBulkCopy<T>(this IInsert<T> that, SqlBulkCopyOptions copyOptions = SqlBulkCopyOptions.Default, int? batchSize = null, int? bulkCopyTimeout = null) where T : class
+    public static void ExecuteSqlBulkCopy<T>(this IInsert<T> that, SqlBulkCopyOptions copyOptions = SqlBulkCopyOptions.Default, int? batchSize = null, int? bulkCopyTimeout = null, string tableName = null) where T : class
     {
         var insert = that as FreeSql.SqlServer.Curd.SqlServerInsert<T>;
         if (insert == null) throw new Exception(CoreStrings.S_Features_Unique("ExecuteSqlBulkCopy", "SqlServer"));
 
         if (insert._insertIdentity) copyOptions = copyOptions | SqlBulkCopyOptions.KeepIdentity;
-        var dt = that.ToDataTable();
+        var dt = that.ToDataTable(tableName);
         if (dt.Rows.Count == 0) return;
 
         Action<SqlBulkCopy> writeToServer = bulkCopy =>
@@ -337,13 +337,13 @@ public static partial class FreeSqlSqlServerGlobalExtensions
         var state = ExecuteSqlBulkCopyState(update);
         return UpdateProvider.ExecuteBulkUpdateAsync(update, state, insert => insert.ExecuteSqlBulkCopyAsync(copyOptions, batchSize, bulkCopyTimeout, cancellationToken));
     }
-    async public static Task ExecuteSqlBulkCopyAsync<T>(this IInsert<T> that, SqlBulkCopyOptions copyOptions = SqlBulkCopyOptions.Default, int? batchSize = null, int? bulkCopyTimeout = null, CancellationToken cancellationToken = default) where T : class
+    async public static Task ExecuteSqlBulkCopyAsync<T>(this IInsert<T> that, SqlBulkCopyOptions copyOptions = SqlBulkCopyOptions.Default, int? batchSize = null, int? bulkCopyTimeout = null, CancellationToken cancellationToken = default, string tableName = null) where T : class
     {
         var insert = that as FreeSql.SqlServer.Curd.SqlServerInsert<T>;
         if (insert == null) throw new Exception(CoreStrings.S_Features_Unique("ExecuteSqlBulkCopyAsync", "SqlServer"));
 
         if (insert._insertIdentity) copyOptions = copyOptions | SqlBulkCopyOptions.KeepIdentity;
-        var dt = that.ToDataTable();
+        var dt = that.ToDataTable(tableName);
         if (dt.Rows.Count == 0) return;
 
         Func<SqlBulkCopy, Task> writeToServerAsync = bulkCopy =>

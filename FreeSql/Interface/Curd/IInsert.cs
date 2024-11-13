@@ -168,7 +168,7 @@ namespace FreeSql
         /// IgnoreColumns、InsertColumns
         /// </summary>
         /// <returns></returns>
-        DataTable ToDataTable();
+        DataTable ToDataTable(string tableName);
 
 #if net40
 #else

@@ -691,10 +691,10 @@ namespace FreeSql.Internal.CommonProvider
             return sb.ToString();
         }
 
-        public DataTable ToDataTable()
+        public DataTable ToDataTable(string tableName = null)
         {
             var dt = new DataTable();
-            dt.TableName = TableRuleInvoke();
+            dt.TableName = tableName ?? TableRuleInvoke();
             var dtCols = new List<NativeTuple<ColumnInfo, Type, bool>>();
             foreach (var col in _table.ColumnsByPosition)
             {
