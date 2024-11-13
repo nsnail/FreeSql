@@ -1,0 +1,21 @@
+<Project>
+	<PropertyGroup>
+		<RepositoryUrl>https://github.com/dotnetcore/FreeSql</RepositoryUrl>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+		<AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+	</PropertyGroup>
+
+	<!--
+	经常出于版本交叉问题，暂时关闭，在每个项目上设置版本号
+	<PropertyGroup>
+		<Version>3.2.833</Version>
+	</PropertyGroup>
+	-->
+	
+	<ItemGroup>
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All"/>
+	</ItemGroup>
+</Project>
