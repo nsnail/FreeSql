@@ -10,7 +10,7 @@
 		<RepositoryType>git</RepositoryType>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageTags>FreeSql;ORM;MySql;MariaDB;Tidb</PackageTags>
-		<PackageId>$(AssemblyName)</PackageId>
+		<PackageId>$(AssemblyName).NS</PackageId>
 		<PackageIcon>logo.png</PackageIcon>
 		<Title>$(AssemblyName)</Title>
 		<IsPackable>true</IsPackable>
@@ -18,8 +18,14 @@
 		<SignAssembly>true</SignAssembly>
 		<AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
 		<DelaySign>false</DelaySign>
-		<Version>3.2.833</Version>
+		<Version>3.2.833-ns6</Version>
 		<PackageReadmeFile>readme.md</PackageReadmeFile>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<DocumentationFile>FreeSql.Provider.MySql.xml</DocumentationFile>
+		<WarningLevel>3</WarningLevel>
+		<NoWarn>1701;1702;1591</NoWarn>
 	</PropertyGroup>
 
 	<ItemGroup>
